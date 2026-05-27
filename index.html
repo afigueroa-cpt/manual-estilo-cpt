@@ -8139,7 +8139,7 @@ function psToggleScale() {
 .st *{box-sizing:border-box}
 .st p{margin:0}.st ul{margin:0;padding:0;list-style:none}
 /* ── Triangle area ── */
-.st .triz{position:relative;height:400px;margin-bottom:22px;user-select:none}
+.st .triz{position:relative;height:520px;margin-bottom:22px;user-select:none}
 .st .triz-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
 /* Vertex nodes */
 .st .vx{position:absolute;width:200px;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.13)}
@@ -8189,17 +8189,17 @@ function psToggleScale() {
   <div class="triz">
 
     <!-- SVG: líneas y relleno del triángulo -->
-    <svg class="triz-svg" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid meet">
-      <!-- relleno sutil -->
-      <polygon points="450,90 100,335 800,335" fill="rgba(45,170,158,.06)"/>
-      <!-- lados del triángulo (punteados) -->
-      <line x1="450" y1="90" x2="100" y2="335" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".55"/>
-      <line x1="450" y1="90" x2="800" y2="335" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".55"/>
-      <line x1="100" y1="335" x2="800" y2="335" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".55"/>
+    <svg class="triz-svg" viewBox="0 0 900 520" preserveAspectRatio="none">
+      <!-- relleno del triángulo interior (solo en el hueco entre tarjetas) -->
+      <polygon points="450,190 200,330 700,330" fill="rgba(45,170,158,.07)"/>
+      <!-- lados completos del triángulo (de header a header) -->
+      <line x1="450" y1="45" x2="100" y2="430" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".5"/>
+      <line x1="450" y1="45" x2="800" y2="430" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".5"/>
+      <line x1="100" y1="430" x2="800" y2="430" stroke="#2DAA9E" stroke-width="2.5" stroke-dasharray="8,5" opacity=".5"/>
       <!-- puntos de vértice -->
-      <circle cx="450" cy="90" r="6" fill="#2DAA9E" opacity=".8"/>
-      <circle cx="100" cy="335" r="6" fill="#2DAA9E" opacity=".8"/>
-      <circle cx="800" cy="335" r="6" fill="#2DAA9E" opacity=".8"/>
+      <circle cx="450" cy="45" r="6" fill="#2DAA9E" opacity=".8"/>
+      <circle cx="100" cy="430" r="6" fill="#2DAA9E" opacity=".8"/>
+      <circle cx="800" cy="430" r="6" fill="#2DAA9E" opacity=".8"/>
     </svg>
 
     <!-- VÉRTICE SUPERIOR: Entrevistas -->
@@ -8382,6 +8382,16 @@ function psToggleScale() {
     </table>
   </div>
   <div class="note">Solo se incluyen en el informe las dimensiones <strong>efectivamente monitoreadas</strong> en la visita, no todas las 9 posibles. La selección debe estar justificada en la sección de metodología.</div>
+  <a href="https://docs.google.com/spreadsheets/d/1qqdUZQt-vPzBRhzxcYeY3ZXDaVeljnlj/edit?gid=1801895816#gid=1801895816" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:#F0F9F8;border:2px solid #A7D7D4;border-radius:10px;padding:14px 18px;text-decoration:none;color:inherit;margin-top:16px;transition:background .18s">
+    <div style="flex-shrink:0;width:44px;height:44px;background:linear-gradient(135deg,#2DAA9E,#1E8A85);border-radius:10px;display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+    </div>
+    <div>
+      <div style="font-size:13.5px;font-weight:800;color:#0D1F47">📊 Matriz de vaciado — Ejemplo</div>
+      <div style="font-size:11.5px;color:#6B7280;margin-top:3px">Google Sheets · Plantilla con columnas por fuente y dimensiones CPT</div>
+    </div>
+    <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2DAA9E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
 </div>
         </div>
       </div>
