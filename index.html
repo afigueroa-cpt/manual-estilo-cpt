@@ -1761,12 +1761,13 @@ footer strong{color:var(--navy);font-weight:800}
 
 /* ══ PER-MODULE ACCENT OVERRIDES ══ */
 /* Manual: keeps default teal (--accent) */
+#mod-manual .intro-block{border:3px solid rgba(94,202,196,.55)}
 
 /* Casos Críticos: red-salmon */
 #mod-criticos .sec-tag{color:#C0392B;border-color:rgba(192,57,43,.3);background:rgba(192,57,43,.07)}
 #mod-criticos .card-title .num{background:#C0392B}
 #mod-criticos .callout{border-left-color:#C0392B}
-#mod-criticos .intro-block{background:linear-gradient(135deg,#1A0D0D,#2A1515,#0D1F47)}
+#mod-criticos .intro-block{border:3px solid rgba(192,57,43,.65)}
 #mod-criticos .intro-kicker{color:#FF8080}
 .ph-mod-btn[data-mod="criticos"].active{background:#C0392B;box-shadow:0 2px 8px rgba(192,57,43,.4)}
 
@@ -1774,7 +1775,7 @@ footer strong{color:var(--navy);font-weight:800}
 #mod-informes .sec-tag{color:#92620A;border-color:rgba(146,98,10,.3);background:rgba(146,98,10,.07)}
 #mod-informes .card-title .num{background:#B7791F}
 #mod-informes .callout{border-left-color:#B7791F}
-#mod-informes .intro-block{background:linear-gradient(135deg,#1A1000,#2A1E00,#0D1F47)}
+#mod-informes .intro-block{border:3px solid rgba(183,121,31,.65)}
 #mod-informes .intro-kicker{color:#FCD34D}
 #mod-informes .infog-modal-trigger-ico{background:#B7791F}
 .ph-mod-btn[data-mod="informes"].active{background:#B7791F;box-shadow:0 2px 8px rgba(183,121,31,.4)}
@@ -1783,7 +1784,7 @@ footer strong{color:var(--navy);font-weight:800}
 #mod-reco .sec-tag{color:#5B21B6;border-color:rgba(91,33,182,.3);background:rgba(91,33,182,.07)}
 #mod-reco .card-title .num{background:#6D28D9}
 #mod-reco .callout{border-left-color:#6D28D9}
-#mod-reco .intro-block{background:linear-gradient(135deg,#0D0A1F,#1A0D3A,#0D1F47)}
+#mod-reco .intro-block{border:3px solid rgba(109,40,217,.65)}
 #mod-reco .intro-kicker{color:#C4B5FD}
 #mod-reco .infog-modal-trigger-ico{background:#6D28D9}
 .ph-mod-btn[data-mod="reco"].active{background:#6D28D9;box-shadow:0 2px 8px rgba(109,40,217,.4)}
@@ -7485,347 +7486,346 @@ function psToggleScale() {
 <div class="infog-overlay" id="modal-protocolo">
   <div class="infog-modal-box">
     <div class="infog-modal-topbar">
-      <div class="infog-modal-topbar-title">🔴 Protocolo de decisión en terreno · Referencia rápida</div>
+      <div class="infog-modal-topbar-title">🔴 Protocolo paso a paso en terreno · 5 momentos de actuación</div>
       <button class="infog-modal-close" onclick="closeInfog('modal-protocolo')" title="Cerrar">✕</button>
     </div>
     <div class="infog-modal-content" style="padding:28px 32px">
-      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px">
-        <div>
-          <div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">5 momentos de actuación</div>
-          <div style="display:flex;flex-direction:column;gap:0;position:relative">
-            <div style="position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--accent) 0%,var(--accent-comp) 100%)"></div>
-            <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative">
-              <div style="flex-shrink:0;width:30px;height:30px;background:#D4941A;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;z-index:1;box-shadow:0 0 0 3px white">1</div>
-              <div><div style="font-size:13.5px;font-weight:800;color:var(--navy)">Llegada</div><div style="font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:2px"><em>¿Puedo escucharla aquí y ahora?</em></div></div>
+<style>
+.spr{all:initial;display:block;font-family:'Atkinson Hyperlegible Next',sans-serif}
+.spr *{box-sizing:border-box}
+.spr p{margin:0}
+.spr ul{margin:0;padding-left:16px}
+.spr li{margin-bottom:3px}
+.spr a{color:inherit}
+.spr .flow{display:flex;flex-direction:column;gap:0}
+.spr .step{border-radius:12px;border:1px solid #E5E7EB;background:white;overflow:hidden;margin-bottom:12px}
+.spr .sh{display:flex;align-items:center;gap:16px;padding:16px 20px}
+.spr .snum{flex-shrink:0;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;position:relative;z-index:1}
+.spr .snum svg{display:block}
+.spr .snum-1{background:#D4941A}
+.spr .snum-2{background:#1A5E8A}
+.spr .snum-3{background:linear-gradient(135deg,#C0392B 50%,#1A5E8A 50%)}
+.spr .snum-4{background:#1A5E8A}
+.spr .snum-5{background:#1A7840}
+.spr .stitle{font-size:15px;font-weight:800;color:#0D1F47;margin-bottom:3px}
+.spr .sq{font-size:12.5px;color:#6B7280;font-style:italic;line-height:1.4}
+.spr .sbody{padding:0 20px 20px 80px;display:flex;flex-direction:column;gap:12px}
+.spr .step-1 .sh{background:#FFFBF0;border-bottom:2px solid rgba(212,148,26,.2)}
+.spr .step-2 .sh{background:#F0F6FB;border-bottom:2px solid rgba(26,94,138,.2)}
+.spr .step-3 .sh{background:linear-gradient(90deg,#FDF0EF 40%,#F0F6FB);border-bottom:2px solid rgba(0,0,0,.08)}
+.spr .step-4 .sh{background:#F0F6FB;border-bottom:2px solid rgba(26,94,138,.2)}
+.spr .step-5 .sh{background:#F0FBF4;border-bottom:2px solid rgba(26,120,64,.2)}
+.spr .ck{display:flex;flex-direction:column;gap:6px}
+.spr .ci{display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:#374151;line-height:1.5;background:#F9FAFB;border-radius:6px;padding:8px 12px}
+.spr .cbx{flex-shrink:0;width:20px;height:20px;border-radius:4px;background:#D4941A;color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;line-height:1}
+.spr .cbx-az{background:#1A5E8A}
+.spr .cbx-arr{background:#E5E7EB;color:#374151}
+.spr .ret{background:#FEF3C7;border-left:3px solid #F59E0B;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400E;line-height:1.5}
+.spr .av{background:#FEE2E2;border-left:3px solid #C0392B;border-radius:6px;padding:10px 14px;font-size:12px;color:#7F1D1D;line-height:1.5}
+.spr .prose{font-size:13px;color:#374151;line-height:1.6}
+.spr .vg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.spr .via{border-radius:10px;overflow:hidden}
+.spr .vh-ro{padding:11px 14px;background:#C0392B;color:white;font-size:13px;font-weight:800}
+.spr .vh-ve{padding:11px 14px;background:#1A7840;color:white;font-size:13px;font-weight:800}
+.spr .vb{padding:14px;background:#FAFAFA;border:1px solid #E5E7EB;border-top:none;display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:1.5}
+.spr .vsub-ro{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#C0392B}
+.spr .vsub-ve{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#1A7840}
+.spr .vul{padding-left:14px;display:flex;flex-direction:column;gap:3px;list-style:disc outside}
+.spr .vul li{color:#374151}
+.spr .stop{background:#FEF0EF;border-radius:6px;padding:10px 12px;font-size:12px;color:#374151;line-height:1.5}
+.spr .ln{background:#FFF3CD;border-radius:6px;padding:8px 12px;font-size:11px;color:#92400E;line-height:1.5}
+.spr .tt3{border-radius:8px;overflow:hidden;border:1px solid #E5E7EB}
+.spr .tt3r{display:grid;grid-template-columns:80px 1fr}
+.spr .tt3n{background:#1A5E8A;color:white;padding:10px 12px;font-size:11px;font-weight:800;display:flex;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,.15)}
+.spr .tt3d{padding:10px 12px;background:white;font-size:12px;color:#374151;line-height:1.5;border-bottom:1px solid #F3F4F6}
+.spr .tt3r:last-child .tt3n,.spr .tt3r:last-child .tt3d{border-bottom:none}
+.spr .dm{background:#0D1F47;border-radius:8px;padding:14px 18px}
+.spr .dmt{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#A7D7D4;margin-bottom:10px}
+.spr .dmp{display:flex;flex-wrap:wrap;gap:8px}
+.spr .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600}
+.spr .cg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spr .cc{border-radius:8px;overflow:hidden}
+.spr .cc-h-az{padding:10px 14px;background:#1A5E8A;color:white;font-size:12px;font-weight:700}
+.spr .cc-h-am{padding:10px 14px;background:#D4941A;color:white;font-size:12px;font-weight:700}
+.spr .cc-h-ro{padding:10px 14px;background:#C0392B;color:white;font-size:12px;font-weight:700}
+.spr .cc-b{padding:10px 14px;background:#F9FAFB;border:1px solid #E5E7EB;border-top:none;font-size:12px;color:#374151;line-height:1.5}
+.spr table.ct{width:100%;border-collapse:collapse;font-size:12px}
+.spr table.ct th{background:#0D1F47;color:white;padding:9px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.04em}
+.spr table.ct td{padding:9px 12px;border-bottom:1px solid #F3F4F6;vertical-align:top;color:#374151;line-height:1.5}
+.spr table.ct tr:nth-child(even) td{background:#F9FAFB}
+.spr .b-req{background:#DBEAFE;color:#1E40AF;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;display:inline-block;margin-bottom:3px}
+.spr .b-no{background:#D1FAE5;color:#065F46;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;display:inline-block;margin-bottom:3px}
+.spr .b-rel{background:#FEF3C7;color:#92400E;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;display:inline-block;margin-bottom:3px}
+.spr .b-ext{background:#FCE7F3;color:#9D174D;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;display:inline-block;margin-bottom:3px}
+.spr .wb{background:#0D1F47;border-radius:8px;padding:14px 18px;color:white;font-size:12.5px;line-height:1.6}
+.spr .fn{font-size:11px;color:#9CA3AF;line-height:1.5;padding:4px 0}
+.spr .pap{display:flex;flex-direction:column;gap:6px}
+.spr .pi{display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:#374151;line-height:1.5}
+.spr .pd{width:7px;height:7px;background:#1A7840;border-radius:50%;flex-shrink:0;margin-top:5px}
+.spr .sg{display:flex;flex-direction:column;gap:8px}
+.spr .sb{border-radius:8px;overflow:hidden;border:1px solid #E5E7EB}
+.spr .sbh{padding:8px 14px;background:#F9FAFB;border-bottom:1px solid #E5E7EB}
+.spr .bdg{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700;display:inline-block}
+.spr .bdg-vis{background:#D1FAE5;color:#065F46}
+.spr .bdg-24{background:#DBEAFE;color:#1E40AF}
+.spr .bdg-48{background:#FEF3C7;color:#92400E}
+.spr .bdg-15{background:#FCE7F3;color:#9D174D}
+.spr .bdg-der{background:#F3E8FF;color:#5B21B6}
+.spr .sil{padding:10px 14px;display:flex;flex-direction:column;gap:6px;font-size:12px;color:#374151;line-height:1.5}
+.spr .dl{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:#F0F9F8;border:1px solid #A7D7D4;border-radius:6px;color:#0D6E69;font-size:11.5px;font-weight:700;text-decoration:none}
+.spr .dl:hover{background:#D4F0EE}
+.spr .conn{text-align:center;color:#D1D5DB;font-size:20px;margin:2px 0;line-height:1}
+</style>
+<div class="spr">
+  <p class="prose" style="margin-bottom:20px">Protocolo de decisión del CPT ante situaciones de tortura, maltrato, riesgo vital o emergencias. Sigue los 5 momentos en orden — cada uno tiene criterios de actuación específicos.</p>
+  <div class="flow">
+
+    <!-- ── PASO 1 ── -->
+    <div class="step step-1">
+      <div class="sh">
+        <div class="snum snum-1">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div><div class="stitle">1 · Llegada</div><div class="sq">¿Puedo escucharla aquí y ahora?</div></div>
+      </div>
+      <div class="sbody">
+        <div class="ck">
+          <div class="ci"><div class="cbx">✓</div><span>Espacio privado, sin custodia ni otras personas que puedan escuchar.</span></div>
+          <div class="ci"><div class="cbx">✓</div><span>Preguntar a la persona si está cómoda o si prefiere que busquemos otro espacio.</span></div>
+          <div class="ci"><div class="cbx">✓</div><span>Tengo el/la profesional adecuado/a para este tipo de situación.</span></div>
+        </div>
+        <div class="ret">↩ Si alguna condición no se cumple: resolver primero. Buscar otro espacio o convocar al/la colega necesario/a. Una vez resuelto, retomar desde aquí.</div>
+        <p class="prose">Si las condiciones están dadas: <strong>me presento.</strong> Nombre, independencia del CPT. La entrevista es voluntaria y puede detenerse en cualquier momento. Garantizo confidencialidad y explico sus límites legales.</p>
+        <div><a class="dl" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📋 Pauta de registro de casos particulares (incluye consentimiento entrevista/grabación)</a></div>
+      </div>
+    </div>
+    <div class="conn">↓</div>
+
+    <!-- ── PASO 2 ── -->
+    <div class="step step-2">
+      <div class="sh">
+        <div class="snum snum-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg>
+        </div>
+        <div><div class="stitle">2 · Escucha activa</div><div class="sq">"¿Qué le gustaría contarme sobre su situación?"</div></div>
+      </div>
+      <div class="sbody">
+        <p class="prose">Escuchar activamente sin interrumpir. Mientras la persona habla, observar en paralelo:</p>
+        <div class="ck">
+          <div class="ci"><div class="cbx cbx-arr">→</div><span><strong>¿Qué me dice?</strong> ¿Relata maltrato, tortura o riesgo vital?</span></div>
+          <div class="ci"><div class="cbx cbx-arr">→</div><span><strong>¿Cómo está?</strong> ¿Crisis aguda, angustia intensa, disociación?</span></div>
+          <div class="ci"><div class="cbx cbx-arr">→</div><span><strong>¿Quién es?</strong> ¿NNA, adulto/a, condición especial de vulnerabilidad?</span></div>
+        </div>
+        <div class="av"><strong>Si la persona no puede comunicarse</strong> — inconsciente, postrada o en crisis de salud mental severa — pasar directamente a 🔴 Vía Roja. Constatar el riesgo visible y actuar aplicando principio pro homine.</div>
+      </div>
+    </div>
+    <div class="conn">↓</div>
+
+    <!-- ── PASO 3 ── -->
+    <div class="step step-3">
+      <div class="sh">
+        <div class="snum snum-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div><div class="stitle">3 · Decisión · Vía Roja o Vía Verde</div><div class="sq">¿Proteger o indagar primero?</div></div>
+      </div>
+      <div class="sbody">
+        <div class="vg">
+          <div class="via">
+            <div class="vh-ro">🔴 Vía Roja — Contención</div>
+            <div class="vb">
+              <div class="vsub-ro">Activar cuando:</div>
+              <ul class="vul">
+                <li>Maltrato/tortura/riesgo vital + <strong>crisis aguda</strong></li>
+                <li>Maltrato/tortura/riesgo vital + es <strong>NNA</strong></li>
+                <li>Maltrato/tortura/riesgo vital + requiere <strong>especialista</strong></li>
+              </ul>
+              <div class="stop"><strong>No indagar. Decir:</strong><br><em>"Te escucho. No necesitas darme más detalles ahora. Vamos a registrar los datos mínimos para que una persona especialista pueda tomar tu caso, ¿te parece?"</em></div>
+              <div class="vsub-ro">¿Por qué no profundizo?</div>
+              <ul class="vul">
+                <li>Para no <strong>revictimizar</strong></li>
+                <li>Para no <strong>contaminar</strong> el trabajo del/la especialista</li>
+              </ul>
+              <div class="vsub-ro" style="margin-top:6px">Una vez activada:</div>
+              <ul class="vul">
+                <li>Contener con presencia calmada</li>
+                <li>No dejar sola a la persona ni en custodia</li>
+                <li>Comunicarse con el equipo y definir cómo seguir</li>
+              </ul>
+              <div class="ln">Art. 2a Ley 21.154 — La denuncia aplica aunque el acto sea cometido por otra persona privada de libertad. No corresponde al CPT calificar penalmente.</div>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative">
-              <div style="flex-shrink:0;width:30px;height:30px;background:var(--accent);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;z-index:1;box-shadow:0 0 0 3px white">2</div>
-              <div><div style="font-size:13.5px;font-weight:800;color:var(--navy)">Escucha</div><div style="font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:2px"><em>"¿Qué le gustaría contarme?"</em></div></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative">
-              <div style="flex-shrink:0;width:30px;height:30px;background:linear-gradient(135deg,#C0392B 50%,var(--accent) 50%);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;z-index:1;box-shadow:0 0 0 3px white">3</div>
-              <div><div style="font-size:13.5px;font-weight:800;color:var(--navy)">Decisión</div><div style="font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:2px"><em>¿Proteger o indagar primero?</em></div></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative">
-              <div style="flex-shrink:0;width:30px;height:30px;background:var(--accent);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;z-index:1;box-shadow:0 0 0 3px white">4</div>
-              <div><div style="font-size:13.5px;font-weight:800;color:var(--navy)">Consentimiento</div><div style="font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:2px"><em>¿Qué autorizo a hacer?</em></div></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative">
-              <div style="flex-shrink:0;width:30px;height:30px;background:var(--accent-dark);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;z-index:1;box-shadow:0 0 0 3px white">5</div>
-              <div><div style="font-size:13.5px;font-weight:800;color:var(--navy)">Seguimiento</div><div style="font-size:11.5px;color:var(--gray);line-height:1.4;margin-top:2px"><em>¿Hubo acciones? ¿Están resueltas?</em></div></div>
+          </div>
+          <div class="via">
+            <div class="vh-ve">🟢 Vía Verde — Toma de relato</div>
+            <div class="vb">
+              <div class="vsub-ve">Activar cuando:</div>
+              <ul class="vul">
+                <li>Adulto/a emocionalmente estable</li>
+                <li>Testigo o tercero informante</li>
+                <li>Puede requerir acción con Dirección o derivación (trato, salud, justicia, contacto exterior)</li>
+              </ul>
+              <div class="tt3">
+                <div class="tt3r">
+                  <div class="tt3n">Tiempo 1</div>
+                  <div class="tt3d"><strong>Relato abierto</strong> — Sin interrumpir. Anotar dudas para después. Historia completa antes de cualquier pregunta.</div>
+                </div>
+                <div class="tt3r">
+                  <div class="tt3n">Tiempo 2</div>
+                  <div class="tt3d"><strong>Clarificación</strong> — Aclarar cronología sin escepticismo. Las incoherencias pueden ser secuela del trauma. Preguntas neutrales: quién, qué, dónde, cuándo, testigos, secuelas.</div>
+                </div>
+                <div class="tt3r">
+                  <div class="tt3n">Tiempo 3</div>
+                  <div class="tt3d"><strong>Toma de registros</strong> — Solo si es necesario y con <strong>consentimiento expreso</strong> de la persona.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:14px">Bifurcación en el Momento 3</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-            <div style="border-radius:10px;overflow:hidden">
-              <div style="padding:12px 16px;background:#C0392B;color:white;font-size:13px;font-weight:800">🔴 Vía Roja — Contención</div>
-              <div style="padding:14px 16px;background:white;border:1px solid var(--cream-dark);border-top:none">
-                <div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#C0392B;margin-bottom:8px">Activar cuando:</div>
-                <div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--text);line-height:1.5">
-                  <div>• Maltrato/tortura + <strong>crisis aguda</strong></div>
-                  <div>• Maltrato/tortura + es <strong>NNA</strong></div>
-                  <div>• Maltrato/tortura + requiere <strong>especialista</strong></div>
-                </div>
-                <div style="background:#FEF0EF;border-radius:6px;padding:10px 12px;margin-top:12px;font-size:12px;color:var(--text);line-height:1.5"><strong>No indagar.</strong> Decir: <em>"No necesitas darme más detalles. Vamos a registrar los datos mínimos para derivar."</em></div>
-              </div>
-            </div>
-            <div style="border-radius:10px;overflow:hidden">
-              <div style="padding:12px 16px;background:#1A7840;color:white;font-size:13px;font-weight:800">🟢 Vía Verde — Toma de relato</div>
-              <div style="padding:14px 16px;background:white;border:1px solid var(--cream-dark);border-top:none">
-                <div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1A7840;margin-bottom:8px">Activar cuando:</div>
-                <div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--text);line-height:1.5">
-                  <div>• Adulto/a emocionalmente <strong>estable</strong></div>
-                  <div>• Testigo o <strong>tercero informante</strong></div>
-                  <div>• Requiere acción con Dirección o derivación</div>
-                </div>
-                <div style="background:#F0F9F4;border-radius:6px;padding:10px 12px;margin-top:12px;font-size:12px;color:var(--text);line-height:1.5"><strong>3 tiempos:</strong> relato abierto → clarificación → toma de registros (con consentimiento).</div>
-              </div>
-            </div>
-          </div>
-          <div style="background:var(--navy);border-radius:8px;padding:14px 18px;margin-top:14px">
-            <div style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light);margin-bottom:10px">Datos mínimos a registrar — ambas vías</div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px">
-              <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600">Nombre y RUT</span>
-              <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600">Fecha</span>
-              <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600">Recinto y unidad</span>
-              <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600">Tipo de solicitud</span>
-              <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);font-weight:600">Consentimiento</span>
-            </div>
+        <div class="dm">
+          <div class="dmt">Datos mínimos a registrar — ambas vías</div>
+          <div class="dmp">
+            <span class="pill">Nombre y RUT</span>
+            <span class="pill">Fecha</span>
+            <span class="pill">Recinto y unidad</span>
+            <span class="pill">Tipo de solicitud</span>
+            <span class="pill">Consentimiento: relato, ficha clínica, acción institucional</span>
           </div>
         </div>
       </div>
     </div>
+    <div class="conn">↓</div>
+
+    <!-- ── PASO 4 ── -->
+    <div class="step step-4">
+      <div class="sh">
+        <div class="snum snum-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div><div class="stitle">4 · Consentimiento y acción CPT</div><div class="sq">¿Qué me autoriza a hacer con esta información?</div></div>
+      </div>
+      <div class="sbody">
+        <div class="cg">
+          <div class="cc">
+            <div class="cc-h-az">Gestión interna urgente</div>
+            <div class="cc-b">Solicitud a Jefatura del recinto. Se menciona al final de la jornada de visita y se reitera vía Oficio.</div>
+          </div>
+          <div class="cc">
+            <div class="cc-h-az">Gestión externa</div>
+            <div class="cc-b">Asignación de defensor u otro mecanismo de apoyo jurídico o psicosocial.</div>
+          </div>
+          <div class="cc">
+            <div class="cc-h-am">Derivación a INDH u otras instituciones de protección</div>
+            <div class="cc-b">Explicar tiempos y qué implica derivar. Fotografías y fichas clínicas solo con consentimiento. Datos de contacto de vínculo cercano.</div>
+          </div>
+          <div class="cc">
+            <div class="cc-h-ro">Denuncia al Ministerio Público</div>
+            <div class="cc-b">Antes de firmar, explicar: tiempos judiciales · reserva de información · uso de fotografías y registros médicos.<br><a class="dl" href="https://docs.google.com/document/d/1CQkQJ2QZNLbWAUviGYCxgYWv22Uc3OiM/edit?usp=sharing" target="_blank" rel="noopener" style="display:inline-flex;margin-top:8px">📋 Consentimiento especial — Denuncia al MP</a></div>
+          </div>
+        </div>
+        <table class="ct">
+          <thead><tr><th>Situación</th><th>Consentimiento para denuncia</th><th>Fuente</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Adulto/a capaz</td>
+              <td><span class="b-req">Siempre requerido</span><br>Incluso en riesgo vital o tortura. Si se niega: no denunciar. Registrar la decisión.</td>
+              <td>Análisis art. 10, párr. 170(iii)</td>
+            </tr>
+            <tr>
+              <td>NNA</td>
+              <td><span class="b-no">No requerido para denuncia</span><br>Interés superior prima. Director del centro firma solo para la entrevista. Informar al NNA que situaciones de riesgo vital serán denunciadas.</td>
+              <td>Protocolo CPT p. 11</td>
+            </tr>
+            <tr>
+              <td>Discapacidad cognitiva severa</td>
+              <td><span class="b-rel">Representante legal</span><br>Evaluar si la persona puede expresar asentimiento propio.</td>
+              <td>Protocolo CPT sec. VI</td>
+            </tr>
+            <tr>
+              <td>Inconsciente / sin comunicación</td>
+              <td><span class="b-ext">Extensión razonada ¹</span><br>Si hay riesgo vital constatable: actuar sin consentimiento (pro homine). Registrar fundamentos.</td>
+              <td>Análisis art. 10, párr. 39–54</td>
+            </tr>
+            <tr>
+              <td>Crisis de salud mental aguda</td>
+              <td><span class="b-ext">Extensión razonada ¹</span><br>Evaluar capacidad de consentir. Si no puede: igual que inconsciente. Priorizar estabilización.</td>
+              <td>Análisis art. 10, párr. 37–38</td>
+            </tr>
+            <tr>
+              <td>Riesgo grave de represalias</td>
+              <td><span class="b-rel">Límite al deber</span><br>Aunque haya consentimiento y deber legal, el integrante del CPT <strong>puede decidir no denunciar</strong>. Registrar la decisión.</td>
+              <td>Protocolo CPT sec. IV.4c</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="wb"><strong>Principio que prevalece siempre:</strong> La protección de la persona privada de libertad tiene prioridad sobre el deber de denunciar. La denuncia es un acto excepcional.</div>
+        <p class="fn">¹ Extensión razonada: se basa en los principios pro homine y effet utile del Análisis art. 10 MNPT (2020), aplicados por analogía.</p>
+      </div>
+    </div>
+    <div class="conn">↓</div>
+
+    <!-- ── PASO 5 ── -->
+    <div class="step step-5">
+      <div class="sh">
+        <div class="snum snum-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div><div class="stitle">5 · Cierre y seguimiento</div><div class="sq">¿Cómo dejo a esta persona antes de irme?</div></div>
+      </div>
+      <div class="sbody">
+        <div class="pap">
+          <div class="pi"><div class="pd"></div><span>Redirigir a tema neutro — no terminar abruptamente.</span></div>
+          <div class="pi"><div class="pd"></div><span>Repasar acuerdos: <em>"Lo que voy a hacer es [acción], en [tiempo]."</em></span></div>
+          <div class="pi"><div class="pd"></div><span>Si hay afectación residual: respiración o refuerzo positivo.</span></div>
+          <div class="pi"><div class="pd"></div><span>Dejar tarjeta de contacto del CPT.</span></div>
+          <div class="pi"><div class="pd"></div><span>Registrar estado emocional al cierre.</span></div>
+        </div>
+        <div class="sg">
+          <div class="sb">
+            <div class="sbh"><span class="bdg bdg-vis">Durante la visita</span></div>
+            <div class="sil">
+              <div><strong>Triangular información</strong> sobre los casos y revisar registros que puedan complementar la información (fichas clínicas, registros de contenciones, etc.), previo consentimiento de la persona.</div>
+              <div><strong>Cierre con Dirección:</strong> el/la experto/a encargado/a debe transmitir las medidas urgentes o inmediatas que deben tomarse en casos particulares observados, <strong>siempre y cuando</strong> se tenga información triangulada en equipo y el consentimiento de la persona para informar a la Dirección.</div>
+            </div>
+          </div>
+          <div class="sb">
+            <div class="sbh"><span class="bdg bdg-24">24 horas</span></div>
+            <div class="sil">Elaborar y deducir denuncia penal si corresponde.</div>
+          </div>
+          <div class="sb">
+            <div class="sbh"><span class="bdg bdg-48">48 horas</span></div>
+            <div class="sil">
+              <div><a class="dl" href="https://docs.google.com/spreadsheets/d/1QSMm0WgEfUEnpFSAG6vWUS-98YF0cuAs-QtZCiM7_fg/edit?gid=0#gid=0" target="_blank" rel="noopener">📊 Registro del caso — Planilla de registro de casos críticos</a></div>
+              <div><strong>Triangulación del caso:</strong> todos los integrantes de la visita socializan información. Jefatura decide en función del consentimiento de la persona.</div>
+            </div>
+          </div>
+          <div class="sb">
+            <div class="sbh"><span class="bdg bdg-15">15 días corridos post-visita</span></div>
+            <div class="sil">
+              <div><a class="dl" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📄 Oficio a Dirección</a> con casos levantados durante la visita.</div>
+              <div><a class="dl" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📄 Oficio o memo a instituciones de protección</a></div>
+              <div>Seguimiento oficio a Jefatura: si no hay respuesta, enviar mail a autoridad preguntando por medidas sobre casos urgentes. Si hubo respuesta pero no se tomaron medidas correctas: reiterar y evaluar derivación según consentimiento.</div>
+            </div>
+          </div>
+          <div class="sb">
+            <div class="sbh"><span class="bdg bdg-der">Seguimiento de derivaciones</span></div>
+            <div class="sil">
+              <div>Seguimiento cada <strong>15 días</strong> luego de la derivación, confirmando la derivación efectiva y las gestiones realizadas.</div>
+              <div><strong>Cierre con instituciones de protección:</strong> una vez confirmada la derivación. Se podrán acordar reuniones quincenales con DN, DPP, INDH u otras instituciones.</div>
+              <div><strong>Cierre con Jefatura del recinto:</strong> la Jefatura de la visita decide qué conversaciones y gestiones de la autoridad del recinto se deben esperar para dar por cerrado el caso. Se podrán realizar visitas de seguimiento.</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#F0FBF4;border-left:3px solid #1A7840;border-radius:6px;padding:10px 14px;font-size:12px;color:#065F46;line-height:1.5">Las visitas de seguimiento pueden levantar información sobre problemas estructurales que afecten a varias personas, contribuyendo así a la prevención de la tortura y otros tratos crueles en recintos de privación de libertad, cuidado o custodia del Estado.</div>
+      </div>
+    </div>
+
   </div>
 </div>
-        <div class="expand-row">
-          <button class="expand-btn" id="expandAllBtn" onclick="toggleAll()">Expandir todo</button>
-        </div>
+    </div>
+  </div>
+</div>
 
-        <!-- PASO 1: LLEGADA -->
-        <div class="paso-block" id="p1">
-          <div class="paso-head" onclick="togglePaso('p1')">
-            <div class="paso-num pn-am">1</div>
-            <div style="flex:1">
-              <div class="paso-tit">Llegada</div>
-              <div class="paso-res">Una persona se acerca — víctima directa o testigo</div>
-            </div>
-            <div class="paso-chev">▾</div>
-          </div>
-          <div class="paso-q" onclick="togglePaso('p1')">¿Puedo escucharla aquí y ahora?</div>
-          <div class="paso-det">
-            <div class="cc-list">
-              <div class="cc-item"><div class="ck-box">✓</div><span>Espacio privado, sin custodia ni otras personas que puedan escuchar.</span></div>
-              <div class="cc-item"><div class="ck-box">✓</div><span>Preguntar a la persona si está cómoda o si prefiere que busquemos otro espacio.</span></div>
-              <div class="cc-item"><div class="ck-box">✓</div><span>Tengo el profesional adecuado para este tipo de situación.</span></div>
-            </div>
-            <div class="retorno-box">↩ Si alguna condición no se cumple: resolver primero. Buscar otro espacio o convocar al/la colega necesario/a. Una vez resuelto, retomar desde aquí.</div>
-            <p style="font-size:13px;color:var(--text);line-height:1.6">Si las condiciones están dadas: <strong>me presento.</strong> Nombre, independencia del CPT. La entrevista es voluntaria y puede detenerse en cualquier momento. Garantizo confidencialidad y explico sus límites legales.</p>
-            <a class="doc-link" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📋 Pauta de registro de casos particulares (incluye consentimiento entrevista/grabación)</a>
-          </div>
-        </div>
-
-        <div class="flow-conn">↓</div>
-
-        <!-- PASO 2: ESCUCHA -->
-        <div class="paso-block" id="p2">
-          <div class="paso-head" onclick="togglePaso('p2')">
-            <div class="paso-num pn-az">2</div>
-            <div style="flex:1">
-              <div class="paso-tit">Escucha</div>
-              <div class="paso-res">Pregunta abierta — observar en paralelo mientras emerge el relato</div>
-            </div>
-            <div class="paso-chev">▾</div>
-          </div>
-          <div class="paso-q" onclick="togglePaso('p2')">"¿Qué le gustaría contarme sobre su situación?"</div>
-          <div class="paso-det">
-            <p style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:12px">Escuchar activamente sin interrumpir. Mientras la persona habla, observar en paralelo:</p>
-            <div class="cc-list">
-              <div class="cc-item"><div class="ck-box ck-arr">→</div><span><strong>¿Qué me dice?</strong> ¿Relata maltrato, tortura o riesgo vital?</span></div>
-              <div class="cc-item"><div class="ck-box ck-arr">→</div><span><strong>¿Cómo está?</strong> ¿Crisis aguda, angustia intensa, disociación?</span></div>
-              <div class="cc-item"><div class="ck-box ck-arr">→</div><span><strong>¿Quién es?</strong> ¿NNA, adulto/a, condición especial de vulnerabilidad?</span></div>
-            </div>
-            <div class="aviso-box"><strong>Si la persona no puede comunicarse:</strong> inconsciente, postrada o en crisis de salud mental severa — pasar directamente a 🔴 Vía Roja. Constatar el riesgo visible y actuar aplicando principio pro homine.</div>
-          </div>
-        </div>
-
-        <div class="flow-conn">↓</div>
-
-        <!-- PASO 3: DECISIÓN -->
-        <div class="paso-block" id="p3">
-          <div class="paso-head" onclick="togglePaso('p3')">
-            <div class="paso-num pn-dec">3</div>
-            <div style="flex:1">
-              <div class="paso-tit">Decisión</div>
-              <div class="paso-res">🔴 Vía Roja — Contención &nbsp;|&nbsp; 🟢 Vía Verde — Toma de relato</div>
-            </div>
-            <div class="paso-chev">▾</div>
-          </div>
-          <div class="paso-q" onclick="togglePaso('p3')">¿Proteger o indagar primero?</div>
-          <div class="paso-det">
-            <div class="bif-grid">
-              <div class="via">
-                <div class="via-head via-ro">🔴 Vía Roja — Contención</div>
-                <div class="via-q">"¿Qué mínimo necesito para activar la ayuda sin hacer más daño?"</div>
-                <div class="via-body">
-                  <div class="via-sub via-ro-sub">Cuándo activarla</div>
-                  <ul>
-                    <li>Relata maltrato/tortura/riesgo vital <strong>+ crisis aguda</strong></li>
-                    <li>Relata maltrato/tortura/riesgo vital <strong>+ es NNA</strong></li>
-                    <li>Relata maltrato/tortura/riesgo vital <strong>+ requiere especialista</strong></li>
-                  </ul>
-                  <div class="stop-box"><strong>No indagar. Decir:</strong><br><em>"Te escucho. No necesitas darme más detalles ahora. Vamos a registrar los datos mínimos para que una persona especialista pueda tomar tu caso, ¿te parece?"</em></div>
-                  <div class="via-sub via-ro-sub">¿Por qué no profundizo?</div>
-                  <ul>
-                    <li>Para no <strong>revictimizar</strong></li>
-                    <li>Para no <strong>contaminar</strong> el trabajo del/la especialista</li>
-                  </ul>
-                  <div class="via-sub via-ro-sub" style="margin-top:10px">Una vez activada</div>
-                  <ul>
-                    <li>Contener con presencia calmada</li>
-                    <li>No dejar sola a la persona ni en custodia</li>
-                    <li>Comunicarse con el equipo y definir cómo seguir</li>
-                  </ul>
-                  <div class="ln-box">Art. 2a Ley 21.154 — La denuncia aplica aunque el acto sea cometido por otra persona privada de libertad. No corresponde al CPT calificar penalmente.</div>
-                </div>
-              </div>
-              <div class="via">
-                <div class="via-head via-ve">🟢 Vía Verde — Toma de relato</div>
-                <div class="via-q">"¿Qué pasó, cómo, cuándo y quién?"</div>
-                <div class="via-body">
-                  <div class="via-sub via-ve-sub">Cuándo activarla</div>
-                  <ul>
-                    <li>Adulto/a emocionalmente estable</li>
-                    <li>Testigo o tercero informante</li>
-                    <li>Puede requerir acción con Dirección o derivación (trato, salud, justicia, contacto exterior)</li>
-                  </ul>
-                  <div class="tiempos">
-                    <div class="tt"><div class="tt-t">Tiempo 1 — Relato abierto</div><div class="tt-d">Sin interrumpir. Anotar dudas para después. Historia completa antes de cualquier pregunta.</div></div>
-                    <div class="tt"><div class="tt-t">Tiempo 2 — Clarificación y profundización</div><div class="tt-d">Aclarar cronología sin escepticismo. Las incoherencias pueden ser secuela del trauma. Preguntas neutrales: <em>"¿Qué ocurrió?"</em> Quién, qué, dónde, cuándo, testigos, secuelas, si había alguna autoridad presente.</div></div>
-                    <div class="tt"><div class="tt-t">Tiempo 3 — Toma de registros</div><div class="tt-d">De contexto y/o lesiones, en caso de ser necesario y contando con el <strong>consentimiento expreso</strong> de la persona. Las evidencias pueden desaparecer más adelante.</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="dm-box">
-              <div class="dm-tit">Datos mínimos a registrar — ambas vías</div>
-              <div class="dm-grid">
-                <span class="dm-pill">Nombre y RUT</span>
-                <span class="dm-pill">Fecha</span>
-                <span class="dm-pill">Recinto y unidad</span>
-                <span class="dm-pill">Tipo de solicitud</span>
-                <span class="dm-pill">Consentimiento: relato, ficha clínica, acción institucional</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flow-conn">↓</div>
-
-        <!-- PASO 4: CONSENTIMIENTO -->
-        <div class="paso-block" id="p4">
-          <div class="paso-head" onclick="togglePaso('p4')">
-            <div class="paso-num pn-az">4</div>
-            <div style="flex:1">
-              <div class="paso-tit">Consentimiento y acción CPT</div>
-              <div class="paso-res">Acciones institucionales según lo conversado y acordado</div>
-            </div>
-            <div class="paso-chev">▾</div>
-          </div>
-          <div class="paso-q" onclick="togglePaso('p4')">¿Qué me autoriza a hacer con esta información?</div>
-          <div class="paso-det">
-            <div class="consent-grid">
-              <div class="ci">
-                <div class="ci-head ci-az-h">Gestión interna urgente</div>
-                <div class="ci-body">Solicitud a Jefatura del recinto. Se menciona al final de la jornada de visita y se reitera vía Oficio.</div>
-              </div>
-              <div class="ci">
-                <div class="ci-head ci-az-h">Gestión externa</div>
-                <div class="ci-body">Asignación de defensor u otro mecanismo de apoyo jurídico o psicosocial.</div>
-              </div>
-              <div class="ci">
-                <div class="ci-head ci-am-h">Derivación a INDH u otras instituciones de protección</div>
-                <div class="ci-body">Explicar tiempos y qué implica derivar. Fotografías y acceso a fichas clínicas (solo con consentimiento). Datos de contacto de vínculo cercano.</div>
-              </div>
-              <div class="ci">
-                <div class="ci-head ci-ro-h">Denuncia al Ministerio Público</div>
-                <div class="ci-body">Antes de firmar, explicar: tiempos judiciales · reserva de información · uso de fotografías y registros médicos.
-                  <a class="doc-link" href="https://docs.google.com/document/d/1CQkQJ2QZNLbWAUviGYCxgYWv22Uc3OiM/edit?usp=sharing&ouid=102737521330978234783&rtpof=true&sd=true" target="_blank" rel="noopener">📋 Consentimiento especial — Denuncia al MP</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="ct-wrap">
-              <table class="ct-table">
-                <thead>
-                  <tr><th>Situación</th><th>Consentimiento para denuncia</th><th>Fuente</th></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Adulto/a capaz</td>
-                    <td><span class="badge b-req">Siempre requerido</span><br>Incluso en riesgo vital o tortura. Si se niega: no denunciar. Registrar la decisión.</td>
-                    <td>Análisis art. 10, párr. 170(iii)</td>
-                  </tr>
-                  <tr>
-                    <td>NNA</td>
-                    <td><span class="badge b-no">No requerido para denuncia</span><br>Interés superior prima. Director del centro firma solo para la entrevista. Informar al NNA que situaciones de riesgo vital serán denunciadas.</td>
-                    <td>Protocolo CPT p. 11</td>
-                  </tr>
-                  <tr>
-                    <td>Discapacidad cognitiva severa</td>
-                    <td><span class="badge b-rel">Representante legal</span><br>Evaluar si la persona puede expresar asentimiento propio.</td>
-                    <td>Protocolo CPT sec. VI</td>
-                  </tr>
-                  <tr>
-                    <td>Inconsciente / sin comunicación</td>
-                    <td><span class="badge b-ext">Extensión razonada ¹</span><br>Si hay riesgo vital constatable: actuar sin consentimiento (pro homine). Registrar fundamentos.</td>
-                    <td>Análisis art. 10, párr. 39–54</td>
-                  </tr>
-                  <tr>
-                    <td>Crisis de salud mental aguda</td>
-                    <td><span class="badge b-ext">Extensión razonada ¹</span><br>Evaluar capacidad de consentir. Si no puede: igual que inconsciente. Priorizar estabilización.</td>
-                    <td>Análisis art. 10, párr. 37–38</td>
-                  </tr>
-                  <tr>
-                    <td>Riesgo grave de represalias</td>
-                    <td><span class="badge b-rel">Límite al deber</span><br>Aunque haya consentimiento y deber legal, el integrante del CPT <strong>puede decidir no denunciar</strong>. Registrar la decisión.</td>
-                    <td>Protocolo CPT sec. IV.4c</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="wb-box"><strong>Principio que prevalece siempre:</strong> La protección de la persona privada de libertad tiene prioridad sobre el deber de denunciar. La denuncia es un acto excepcional.</div>
-            <div class="footnote-box">¹ Extensión razonada: se basa en los principios pro homine y effet utile del Análisis art. 10 MNPT (2020), aplicados por analogía.</div>
-          </div>
-        </div>
-
-        <div class="flow-conn">↓</div>
-
-        <!-- PASO 5: CIERRE -->
-        <div class="paso-block" id="p5">
-          <div class="paso-head" onclick="togglePaso('p5')">
-            <div class="paso-num pn-ci">5</div>
-            <div style="flex:1">
-              <div class="paso-tit">Cierre y seguimiento</div>
-              <div class="paso-res">PAP + acciones post-visita + seguimiento del caso</div>
-            </div>
-            <div class="paso-chev">▾</div>
-          </div>
-          <div class="paso-q" onclick="togglePaso('p5')">¿Cómo dejo a esta persona antes de irme?</div>
-          <div class="paso-det">
-            <div class="pap-list" style="margin-bottom:16px">
-              <div class="pap-item"><div class="pap-dot"></div><span>Redirigir a tema neutro — no terminar abruptamente.</span></div>
-              <div class="pap-item"><div class="pap-dot"></div><span>Repasar acuerdos: <em>"Lo que voy a hacer es [acción], en [tiempo]."</em></span></div>
-              <div class="pap-item"><div class="pap-dot"></div><span>Si hay afectación residual: respiración o refuerzo positivo.</span></div>
-              <div class="pap-item"><div class="pap-dot"></div><span>Dejar tarjeta de contacto del CPT.</span></div>
-              <div class="pap-item"><div class="pap-dot"></div><span>Registrar estado emocional al cierre.</span></div>
-            </div>
-            <div class="seg-grid">
-              <div class="seg-block">
-                <div class="seg-head"><span class="seg-badge sb-24">Durante la visita</span></div>
-                <div class="seg-items">
-                  <div class="seg-item"><strong>Triangular información</strong> sobre los casos y revisar registros que puedan complementar la información (fichas clínicas, registros de contenciones, etc.), previo consentimiento de la persona.</div>
-                  <div class="seg-item"><strong>Cierre con Dirección:</strong> la/el experta/o encargada/o de la visita deberá transmitir las medidas urgentes o inmediatas que deben tomarse en casos o situaciones particulares observadas, <strong>siempre y cuando</strong> se tenga información triangulada en equipo y el consentimiento de la persona a informar de su situación a la Dirección.</div>
-                </div>
-              </div>
-              <div class="seg-block">
-                <div class="seg-head"><span class="seg-badge sb-24">24 horas</span></div>
-                <div class="seg-items">
-                  <div class="seg-item">Elaborar y deducir denuncia penal si corresponde.</div>
-                </div>
-              </div>
-              <div class="seg-block">
-                <div class="seg-head"><span class="seg-badge sb-48">48 horas</span></div>
-                <div class="seg-items">
-                  <div class="seg-item"><a class="doc-link" href="https://docs.google.com/spreadsheets/d/1QSMm0WgEfUEnpFSAG6vWUS-98YF0cuAs-QtZCiM7_fg/edit?gid=0#gid=0" target="_blank" rel="noopener">📊 Registro del caso — Planilla de registro de casos críticos</a></div>
-                  <div class="seg-item"><strong>Triangulación del caso:</strong> todos los integrantes de la visita socializan información sobre el caso. Jefatura decide en función del consentimiento de la persona.</div>
-                </div>
-              </div>
-              <div class="seg-block">
-                <div class="seg-head"><span class="seg-badge sb-15d">15 días corridos post-visita</span></div>
-                <div class="seg-items">
-                  <div class="seg-item"><a class="doc-link" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📄 Oficio a Dirección</a> con casos levantados durante la visita.</div>
-                  <div class="seg-item"><a class="doc-link" href="https://docs.google.com/document/d/19QG-mnvFvxI75N-0n4w9u_wT9cmIe5PE/edit" target="_blank" rel="noopener">📄 Oficio o memo a instituciones de protección</a></div>
-                  <div class="seg-item"><strong>Seguimiento oficio a Jefatura:</strong> si no hay respuesta, enviar mail a autoridad preguntando por medidas sobre casos urgentes y evaluando si se han tomado medidas correctas.</div>
-                  <div class="seg-item">Si hubo respuesta pero no se tomaron medidas correctas: reiterar vía mail y evaluar derivación de casos según consentimiento.</div>
-                </div>
-              </div>
-              <div class="seg-block">
-                <div class="seg-head"><span class="seg-badge sb-der">Seguimiento de derivaciones</span></div>
-                <div class="seg-items">
-                  <div class="seg-item">Seguimiento cada <strong>15 días</strong> luego de la derivación, confirmando la derivación efectiva y las gestiones realizadas.</div>
-                  <div class="seg-item"><strong>Cierre con instituciones de protección:</strong> una vez confirmada la derivación y las gestiones. Se podrán acordar reuniones quincenales con DN, DPP, INDH u otras instituciones.</div>
-                  <div class="seg-item"><strong>Cierre con Jefatura del recinto:</strong> la Jefatura de la visita decide qué conversaciones y gestiones de la autoridad del recinto se deben esperar para dar por cerrado el caso. Se podrán realizar visitas de seguimiento.</div>
-                </div>
-              </div>
-            </div>
-            <div class="seg-note">Las visitas de seguimiento pueden levantar información sobre problemas estructurales que afecten a varias personas, contribuyendo así a la prevención de la tortura y otros tratos crueles en recintos de privación de libertad, cuidado o custodia del Estado.</div>
-          </div>
-        </div>
-
-      </section>
+            </section>
     </div><!-- fin mod-criticos -->
 
 
@@ -8090,6 +8090,7 @@ function psToggleScale() {
         <div class="tr"><div class="tl">Propósito</div><div class="tv">Verificar implementación de recomendaciones previas</div></div>
         <div class="tr"><div class="tl">Estructura</div><div class="tv">Referencia recomendación → Estado (Implementada / Parcial / No implementada) → Nuevo análisis</div></div>
         <div class="tr"><div class="tl">Nuevas recomendaciones</div><div class="tv"><span class="ba bo">Si hay regresión o incumplimiento</span></div></div>
+        <div class="link-row"><!-- URL_INFORME_SEGUIMIENTO: reemplazar href con el link Google Docs cuando esté disponible --><a class="dl" href="#" target="_blank" style="opacity:.5;cursor:default">📎 Formato (pendiente)</a></div>
       </div>
     </div>
   </div>
