@@ -67,6 +67,30 @@ body{font-family:'Atkinson Hyperlegible Next',Arial,sans-serif;background:var(--
 @media(max-width:900px){.cards-grid.two-col-grid{grid-template-columns:1fr;}}
 @media(max-width:620px){.cards-grid.compact{grid-template-columns:1fr;}}
 
+/* == TERMINOLOGÍA grid: max 4 columnas == */
+.cards-grid.terminologia-grid{grid-template-columns:repeat(4,1fr);gap:10px;}
+.terminologia-grid .card{padding:11px 14px;}
+.terminologia-grid .card-header{margin-bottom:6px;}
+.terminologia-grid .card-title{font-size:14px;}
+.terminologia-grid .card-badge{font-size:10px;padding:1px 6px;}
+.terminologia-grid .term-pair{gap:6px;margin-top:4px;}
+.terminologia-grid .term-correct,.terminologia-grid .term-wrong{padding:7px 9px;font-size:13px;}
+.terminologia-grid .card-source{font-size:11px;margin-top:6px;padding-top:5px;}
+@media(max-width:1100px){.cards-grid.terminologia-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:780px){.cards-grid.terminologia-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.cards-grid.terminologia-grid{grid-template-columns:1fr;}}
+
+/* == DEFINICIONES grid: max 2 columnas == */
+.cards-grid.definicion-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:780px){.cards-grid.definicion-grid{grid-template-columns:1fr;}}
+
+/* == FOTOGRAFÍA grid: 2 columnas, tarjeta de principios en ancho completo == */
+.cards-grid.foto-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+.foto-grid .card-photo-wrap{grid-column:auto;grid-template-columns:1fr 240px;}
+.foto-grid .card-photo-img{width:240px;min-height:200px;}
+.card-principio{grid-column:1/-1;background:linear-gradient(135deg,#D6E8F4 0%,#C6D9EE 100%);border-color:#9ABCD4;border-width:1.5px;}
+@media(max-width:780px){.cards-grid.foto-grid{grid-template-columns:1fr;}}
+
 /* == EYE BUTTON for examples == */
 .btn-eye{display:inline-flex;align-items:center;gap:4px;background:rgba(45,168,162,.08);border:1.5px solid rgba(45,168,162,.25);color:var(--teal-dark);border-radius:6px;padding:4px 10px;font-family:'Atkinson Hyperlegible Next',Arial,sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:8px;float:right;}
 .btn-eye:hover{background:rgba(45,168,162,.18);border-color:var(--teal);color:var(--teal);}
@@ -1202,10 +1226,12 @@ function renderCards(){
   let gridClass='cards-grid';
   if(currentView==='list') gridClass='cards-list';
   else if(currentSection==='s3' && s3SubTab==='3.1') gridClass='cards-grid compact';
-  else if(['s2','s4','s5','s6','s7','s8','s9'].includes(currentSection)) gridClass='cards-grid two-col-grid';
-  // Section 1 sub-tabs: 1.4/1.5 compact, others two-col
+  else if(currentSection==='s9') gridClass='cards-grid foto-grid';
+  else if(['s2','s4','s5','s6','s7','s8'].includes(currentSection)) gridClass='cards-grid two-col-grid';
+  // Section 1 sub-tabs: 1.4 terminología (4 col), 1.5 definiciones (2 col), others two-col
   else if(currentSection==='s1'){
-    if(s1SubTab==='1.4'||s1SubTab==='1.5') gridClass='cards-grid compact';
+    if(s1SubTab==='1.4') gridClass='cards-grid terminologia-grid';
+    else if(s1SubTab==='1.5') gridClass='cards-grid definicion-grid';
     else gridClass='cards-grid two-col-grid';
   }
   container.innerHTML=`<div class="${gridClass}">${visibleItems.map(renderCard).join('')}</div>`;
@@ -1272,7 +1298,9 @@ function renderCard(d){
       </div>
     </div>`;
   }
-  return `<div class="card">${acts}${cardInner}</div>`;
+  // Principios card: full-width with darker background (Fotografía subsection, no photo)
+  const isPrincipio = d.subsection==='Fotografía' && !d.photoSrc;
+  return `<div class="card${isPrincipio?' card-principio':''}">${acts}${cardInner}</div>`;
 }
 
 /* ── EDIT MODE ── */
