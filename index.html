@@ -201,7 +201,17 @@ main{padding:0 24px 40px;width:100%;box-sizing:border-box;}
 .card-accent-foto{border-left-color:#1E8FC2;}
 .card-accent-concepto{border-left-color:#8B5CF6;}
 .card-accent-glosario{border-left-color:#2F7FB8;}
-.card-header{display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;}
+/* Fichas desplegables (acordeón) */
+.accordion-card{padding-top:0;padding-bottom:0;overflow:hidden;}
+.accordion-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;padding:15px 17px;margin:0 -17px;user-select:none;}
+.accordion-header .card-header{margin-bottom:0;flex:1;min-width:0;}
+.accordion-header:hover{background:rgba(65,114,184,.05);}
+.accordion-chevron{flex-shrink:0;font-size:13px;color:var(--gray);transition:transform .2s;margin-top:2px;}
+.accordion-header.open .accordion-chevron{transform:rotate(180deg);}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .25s ease, padding .25s ease;}
+.accordion-body.open{max-height:4000px;padding-bottom:15px;}
+.accordion-body>*:first-child{margin-top:0;}
+.card-header{display:flex;flex-wrap:wrap;align-items:flex-start;gap:5px 9px;margin-bottom:10px;}
 .card-badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
 .badge-glosario{background:#DBEDF9;color:#1E4C80;}
 .badge-sigla{background:#D4F0EE;color:#1A6B67;}
@@ -217,7 +227,7 @@ main{padding:0 24px 40px;width:100%;box-sizing:border-box;}
 .card-photo-img{width:340px;height:100%;object-fit:cover;display:block;min-height:280px;}
 .card-photo-caption{font-size:10px;color:rgba(255,255,255,0.85);font-style:italic;padding:5px 8px;background:rgba(13,31,71,0.82);position:absolute;bottom:0;left:0;right:0;}
 .badge-concepto{background:#F0E6FA;color:#5A2EA0;}
-.card-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.3;}
+.card-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.3;min-width:0;word-wrap:break-word;overflow-wrap:break-word;}
 .term-pair{display:flex;gap:9px;margin-top:5px;align-items:stretch;}
 .term-correct,.term-wrong{flex:1;min-width:0;padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.45;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto;}
 .term-correct{background:#E1F5EE;border:1px solid #5DCAA5;color:#0F6E56;}
@@ -1080,6 +1090,23 @@ let s7SubTab='7.0';      // '7.0' all | '7.1' regla | '7.2' formato
 
 /* ── SECTION 9 (Identidad Visual): sub-tab ── */
 let s9SubTab='9.1';      // '9.1' tipografía | '9.2' fotografías | '9.3' logos
+
+/* ── FICHAS DESPLEGABLES (acordeón) ── */
+let openAccordionIds = new Set();
+function toggleAccordion(id){
+  const header = document.querySelector(`.accordion-header[onclick*="'${id}'"]`);
+  const body = document.getElementById('acc-body-'+id);
+  if(!header||!body) return;
+  if(openAccordionIds.has(id)){
+    openAccordionIds.delete(id);
+    header.classList.remove('open');
+    body.classList.remove('open');
+  } else {
+    openAccordionIds.add(id);
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+}
 let s8Area='all';
 
 /* ══════════════════════════════════════════════
@@ -1349,11 +1376,22 @@ function renderCards(){
   container.innerHTML=`<div class="${gridClass}">${visibleItems.map(renderCard).join('')}</div>`;
 }
 
+function isAccordionSection(){
+  if(currentSection==='s10') return true;  // Tipos de recintos
+  if(currentSection==='s11') return true;  // Dimensiones y subdimensiones
+  if(currentSection==='s6') return true;   // Citas y Referencias APA
+  if(currentSection==='s7') return true;   // Notas al Pie
+  if(currentSection==='s8') return true;   // Uso de IA
+  if(currentSection==='s1' && (s1SubTab==='1.4'||s1SubTab==='1.5')) return true; // Terminología / Definiciones conceptuales
+  return false;
+}
+
 function renderCard(d){
   // Skip panelOnly entries (appear only in QR panel)
   if(d.panelOnly) return '';
   const sectionBadgeLocal = sectionBadge[currentSection]||'badge-estilo';
   const accentClass = 'card-accent-'+sectionBadgeLocal.replace('badge-','');
+  const accordion = isAccordionSection();
   // Badge: use area_tematica if available, then subsection (cleaned), else section label
   const sLabel = sections.find(s=>s.id===currentSection)?.label||currentSection;
   const badgeLabel = d.area_tematica || (d.subsection ? d.subsection.replace(/^Terminología · |^Definiciones · /,'') : '') || sLabel;
@@ -1362,17 +1400,33 @@ function renderCard(d){
     <button class="btn-card-del" onclick="deleteEntry('${d.id}')">✕ Eliminar</button>
   </div>`;
 
+  function wrapAccordion(headerHtml, bodyHtml, extraCardClass){
+    const open = openAccordionIds.has(d.id);
+    return `<div class="card accordion-card ${accentClass}${extraCardClass?' '+extraCardClass:''}">${acts}
+      <div class="accordion-header${open?' open':''}" onclick="toggleAccordion('${d.id}')">
+        <div class="card-header">${headerHtml}</div>
+        <span class="accordion-chevron">▾</span>
+      </div>
+      <div class="accordion-body${open?' open':''}" id="acc-body-${d.id}">${bodyHtml}</div>
+    </div>`;
+  }
+
   // USAR/EVITAR card (terminología, 1.4)
-  if(d.correct && d.wrong) return `<div class="card ${accentClass}">${acts}
-    <div class="card-header"><span class="card-badge ${sectionBadgeLocal}">${hl(d.area_tematica||badgeLabel)}</span><span class="card-title">${hl(d.title)}</span></div>
-    <div class="term-pair">
+  if(d.correct && d.wrong){
+    const headerHtml = `<span class="card-badge ${sectionBadgeLocal}">${hl(d.area_tematica||badgeLabel)}</span><span class="card-title">${hl(d.title)}</span>`;
+    const bodyHtml = `<div class="term-pair">
       <div class="term-correct"><span class="term-label"><span class="term-icon">✓</span> Usar</span><span class="term-text">${hl(d.correct)}</span></div>
       <div class="term-wrong"><span class="term-label"><span class="term-icon">✗</span> Evitar</span><span class="term-text">${hl(d.wrong)}</span></div>
     </div>
-    ${d.source?`<div class="card-source">Fuente: ${d.source}</div>`:''}
+    ${d.source?`<div class="card-source">Fuente: ${d.source}</div>`:''}`;
+    if(accordion) return wrapAccordion(headerHtml, bodyHtml);
+    return `<div class="card ${accentClass}">${acts}
+    <div class="card-header">${headerHtml}</div>
+    ${bodyHtml}
   </div>`;
+  }
 
-  // Sigla card
+  // Sigla card (siempre en formato lista, sin desplegable)
   if(d.abbr) return `<div class="card sigla-card ${accentClass}">${acts}
     <div class="sigla-abbr">${hl(d.abbr)}</div>
     <div class="sigla-term">${hl(d.term)}</div>
@@ -1387,8 +1441,8 @@ function renderCard(d){
     if(d.reference) cites+=`<div class="cite-item"><span class="cite-label">Referencia bibliográfica</span><span class="cite-value">${d.reference}</span></div>`;
     cites+='</div>';
   }
-  const cardInner = `
-    <div class="card-header"><span class="card-badge ${sectionBadgeLocal}">${hl(badgeLabel)}</span><span class="card-title">${hl(d.title)}</span></div>
+  const headerHtml = `<span class="card-badge ${sectionBadgeLocal}">${hl(badgeLabel)}</span><span class="card-title">${hl(d.title)}</span>`;
+  const restHtml = `
     ${d.body?`<div class="card-body">${hl(d.body)}</div>`:''}
     ${cites}
     ${d.doBox?`<div class="do-box"><span class="do-label">✓ Hacer</span>${hl(d.doBox)}</div>`:''}
@@ -1402,6 +1456,7 @@ function renderCard(d){
     ${d.logoFiles?`<div class="logo-download-card logo-download-multi"><div class="logo-download-icon">🏛</div><div class="logo-download-text"><h5>Archivos de logo</h5>${d.logoFiles.map(lf=>`<a class="logo-download-btn" href="${lf.file}" download>⬇ ${lf.label}</a>`).join('')}</div></div>`:''}
     ${d.externalLink?`<a class="btn-ext-link" href="${d.externalLink}" target="_blank" rel="noopener">👁 ${d.externalLinkLabel||'Ver guía externa'}</a>`:''}
     ${d.warning?`<div class="note-warning">${hl(d.warning)}</div>`:''}`;
+  const cardInner = `<div class="card-header">${headerHtml}</div>${restHtml}`;
 
   if(d.photoSrc){
     return `<div class="card card-photo-wrap ${accentClass}">${acts}
@@ -1412,6 +1467,7 @@ function renderCard(d){
       </div>
     </div>`;
   }
+  if(accordion) return wrapAccordion(headerHtml, restHtml);
   // Principios card: full-width with darker background (Fotografía subsection, no photo)
   const isPrincipio = d.subsection==='Fotografía' && !d.photoSrc;
   return `<div class="card ${accentClass}${isPrincipio?' card-principio':''}">${acts}${cardInner}</div>`;
