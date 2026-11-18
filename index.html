@@ -1613,6 +1613,9 @@ window.addEventListener('resize',function(){
   if(window.innerWidth>960){
     if(overlay)overlay.classList.remove('visible');
     if(!qrOpen){qrOpen=true;if(panel)panel.classList.remove('collapsed');if(toggle)toggle.style.display='none';}
+  } else if(qrOpen && !(overlay&&overlay.classList.contains('visible'))){
+    // Al achicar la ventana, el panel pasa a cerrado para no tapar el contenido
+    qrOpen=false;if(panel)panel.classList.add('collapsed');if(toggle)toggle.style.display='';
   }
 });
 function updateSidebar(sectionId){updateQRPanel(sectionId);}
