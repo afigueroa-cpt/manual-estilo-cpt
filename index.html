@@ -555,6 +555,17 @@ html{scroll-behavior:smooth;}
   a[href]::after{content:" (" attr(href) ")";font-size:8pt;color:#555;}
 }
 
+/* Agrupación por área temática (Terminología y Definiciones) */
+.area-group{margin-bottom:26px;}
+.area-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid color-mix(in srgb,var(--area-acc) 35%,#fff);}
+.area-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--area-acc);flex-shrink:0;}
+.spill .area-dot{width:8px;height:8px;margin-right:6px;vertical-align:middle;}
+.area-count{font-size:11px;font-weight:700;color:var(--gray);background:var(--cream-dark);border-radius:10px;padding:1px 8px;letter-spacing:0;}
+.area-group .card{--acc:var(--area-acc);}
+.area-group .acc-icon,.area-group .accordion-header .card-badge{display:none;}
+.area-group .accordion-header,.area-group .accordion-card.open .accordion-header{grid-template-columns:1fr auto;grid-template-areas:"head chev";align-items:center;padding:14px 16px;}
+.area-group .accordion-card:not(.open){border-top-width:1px;border-top-color:var(--gray-light);border-left:4px solid var(--area-acc);border-radius:10px;}
+
 /* Encabezado en pantallas chicas (no afecta escritorio: solo aplica bajo 620px) */
 @media(max-width:620px){
   .logo-band{flex-wrap:wrap;gap:10px 12px;}
@@ -1261,7 +1272,7 @@ function renderNavS1(wrap){
     const areas = [...new Set(subset.map(d=>d.area_tematica).filter(Boolean))].sort();
     if(areas.length){
       const pills = areas.map(a=>
-        `<button class="spill ${s1Area===a?'active':''}" onclick="setS1Area('${a}')">${a}</button>`
+        `<button class="spill ${s1Area===a?'active':''}" onclick="setS1Area('${a}')"><span class="area-dot" style="--area-acc:${areaColor(a)}"></span>${a}</button>`
       ).join('');
       wrap.innerHTML += `<div class="spill-row">${pills}</div>`;
     }
@@ -1409,7 +1420,30 @@ function renderCards(){
     else if(s1SubTab==='1.5') gridClass='cards-grid definicion-grid';
     else gridClass='cards-grid two-col-grid';
   }
+  // Terminología y Definiciones: agrupadas por área temática, cada área con su color
+  if(currentView!=='list' && isAreaGroupedView()){
+    const groups=new Map();
+    visibleItems.forEach(d=>{const a=d.area_tematica||'General';if(!groups.has(a))groups.set(a,[]);groups.get(a).push(d);});
+    container.innerHTML=[...groups.keys()].sort((x,y)=>x.localeCompare(y,'es')).map(a=>{
+      const list=groups.get(a);
+      return `<section class="area-group" style="--area-acc:${areaColor(a)}">
+        <h3 class="area-head"><span class="area-dot"></span>${a}<span class="area-count">${list.length}</span></h3>
+        <div class="cards-grid accordion-grid">${list.map(renderCard).join('')}</div>
+      </section>`;
+    }).join('');
+    return;
+  }
   container.innerHTML=`<div class="${gridClass}">${visibleItems.map(renderCard).join('')}</div>`;
+}
+
+const AREA_PALETTE=['#2F7FB8','#1A9B94','#8B5CF6','#E07B39','#C2447A','#4C9E47','#B8860B','#5A6A80','#C23B3B'];
+function isAreaGroupedView(){
+  return currentSection==='s1' && (s1SubTab==='1.4'||s1SubTab==='1.5') && !searchQuery.trim();
+}
+function areaColor(a){
+  const areas=[...new Set(data.filter(d=>d.sub_pestana===s1SubTab).map(d=>d.area_tematica||'General'))].sort((x,y)=>x.localeCompare(y,'es'));
+  const i=areas.indexOf(a);
+  return AREA_PALETTE[(i<0?0:i)%AREA_PALETTE.length];
 }
 
 function isAccordionSection(){
