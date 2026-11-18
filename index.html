@@ -554,6 +554,16 @@ html{scroll-behavior:smooth;}
   .main-layout{display:block!important;}
   a[href]::after{content:" (" attr(href) ")";font-size:8pt;color:#555;}
 }
+
+/* Encabezado en pantallas chicas (no afecta escritorio: solo aplica bajo 620px) */
+@media(max-width:620px){
+  .logo-band{flex-wrap:wrap;gap:10px 12px;}
+  .header-texts{flex:1;min-width:0;}
+  .header-texts h1{font-size:14.5px;}
+  .header-texts p{font-size:10.5px;letter-spacing:.02em;}
+  .header-right{margin-left:0;width:100%;flex-wrap:wrap;gap:6px;}
+  .header-right>*{flex:1 1 auto;justify-content:center;text-align:center;}
+}
 </style>
 </head>
 <body>
