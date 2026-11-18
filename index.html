@@ -188,28 +188,38 @@ main{padding:0 24px 40px;width:100%;box-sizing:border-box;}
 .cards-list{display:flex;flex-direction:column;gap:9px;width:100%;}
 
 /* CARDS */
-.card{background:#fff;border-radius:10px;border:1px solid var(--gray-light);border-left:4px solid var(--gray-light);padding:15px 17px;transition:box-shadow .2s,transform .15s,border-left-color .2s;position:relative;}
+.card{background:#fff;border-radius:14px;border:1px solid var(--gray-light);border-top:3px solid var(--acc,var(--gray-light));padding:16px 18px;transition:box-shadow .2s,transform .15s;position:relative;}
+.sigla-card{border-top:1px solid var(--gray-light);border-left:4px solid var(--acc,var(--gray-light));border-radius:10px;}
 .card:hover{box-shadow:0 5px 22px rgba(20,46,102,.11);transform:translateY(-1px);}
 /* Acento de color por categoría de sección — da jerarquía visual al recorrer varias fichas */
-.card-accent-estilo{border-left-color:#E07B39;}
-.card-accent-sigla{border-left-color:#1A9B94;}
-.card-accent-cita{border-left-color:#4C9E47;}
-.card-accent-juridico{border-left-color:#6A42B8;}
-.card-accent-formato{border-left-color:#4172B8;}
-.card-accent-nota{border-left-color:#C23B3B;}
-.card-accent-ia{border-left-color:#7A4FD1;}
-.card-accent-foto{border-left-color:#1E8FC2;}
-.card-accent-concepto{border-left-color:#8B5CF6;}
-.card-accent-glosario{border-left-color:#2F7FB8;}
+.card-accent-estilo{--acc:#E07B39;}
+.card-accent-sigla{--acc:#1A9B94;}
+.card-accent-cita{--acc:#4C9E47;}
+.card-accent-juridico{--acc:#6A42B8;}
+.card-accent-formato{--acc:#4172B8;}
+.card-accent-nota{--acc:#C23B3B;}
+.card-accent-ia{--acc:#7A4FD1;}
+.card-accent-foto{--acc:#1E8FC2;}
+.card-accent-concepto{--acc:#8B5CF6;}
+.card-accent-glosario{--acc:#2F7FB8;}
 /* Fichas desplegables (acordeón) */
-.accordion-card{padding-top:0;padding-bottom:0;overflow:hidden;}
-.accordion-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;padding:15px 17px;margin:0 -17px;user-select:none;}
-.accordion-header .card-header{margin-bottom:0;flex:1;min-width:0;}
-.accordion-header:hover{background:rgba(65,114,184,.05);}
-.accordion-chevron{flex-shrink:0;font-size:13px;color:var(--gray);transition:transform .2s;margin-top:2px;}
-.accordion-header.open .accordion-chevron{transform:rotate(180deg);}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height .25s ease, padding .25s ease;}
-.accordion-body.open{max-height:4000px;padding-bottom:15px;}
+.cards-grid.accordion-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+.accordion-card{padding:0;overflow:hidden;display:flex;flex-direction:column;}
+.accordion-card.open{grid-column:1/-1;box-shadow:0 6px 26px rgba(20,46,102,.12);}
+.accordion-header{display:grid;grid-template-columns:1fr auto;grid-template-areas:"icon chev" "head head";gap:12px 10px;align-items:start;align-content:start;cursor:pointer;padding:18px 18px 16px;user-select:none;flex:1;}
+.accordion-card.open .accordion-header{grid-template-columns:auto 1fr auto;grid-template-areas:"icon head chev";align-items:center;flex:none;border-bottom:1px solid var(--gray-light);}
+.accordion-header:hover{background:color-mix(in srgb,var(--acc,#4172B8) 5%,#fff);}
+.accordion-header:focus-visible{outline:2px solid var(--acc,#4172B8);outline-offset:-2px;}
+.acc-icon{grid-area:icon;width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--acc,#4172B8) 14%,#fff);color:var(--acc,#4172B8);}
+.acc-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+.accordion-header .card-header{grid-area:head;margin-bottom:0;min-width:0;}
+.accordion-header .card-badge{background:none;padding:0;color:var(--acc,var(--gray));font-size:10px;}
+.accordion-chevron{grid-area:chev;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gray);background:var(--cream);transition:transform .2s,background .2s;}
+.accordion-chevron svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+.accordion-card.open .accordion-chevron{transform:rotate(180deg);background:color-mix(in srgb,var(--acc,#4172B8) 14%,#fff);color:var(--acc,#4172B8);}
+.accordion-body{display:none;padding:16px 18px 18px;}
+.accordion-card.open .accordion-body{display:block;}
+.accordion-body>*{max-width:920px;}
 .accordion-body>*:first-child{margin-top:0;}
 .card-header{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:10px;}
 .card-badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
@@ -1094,18 +1104,33 @@ let s9SubTab='9.1';      // '9.1' tipografía | '9.2' fotografías | '9.3' logos
 /* ── FICHAS DESPLEGABLES (acordeón) ── */
 let openAccordionIds = new Set();
 function toggleAccordion(id){
-  const header = document.querySelector(`.accordion-header[onclick*="'${id}'"]`);
   const body = document.getElementById('acc-body-'+id);
-  if(!header||!body) return;
-  if(openAccordionIds.has(id)){
-    openAccordionIds.delete(id);
-    header.classList.remove('open');
-    body.classList.remove('open');
-  } else {
-    openAccordionIds.add(id);
-    header.classList.add('open');
-    body.classList.add('open');
-  }
+  if(!body) return;
+  const card = body.closest('.accordion-card');
+  const header = card.querySelector('.accordion-header');
+  const open = !openAccordionIds.has(id);
+  if(open) openAccordionIds.add(id); else openAccordionIds.delete(id);
+  card.classList.toggle('open',open);
+  header.setAttribute('aria-expanded',open?'true':'false');
+  if(open) card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+const ACC_ICONS={
+  recinto:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-4h6v4M8 7h.01M12 7h.01M16 7h.01M8 11h.01M12 11h.01M16 11h.01"/>',
+  capas:'<path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  cita:'<path d="M7 7h4v4c0 3-1.5 5-4 6M14 7h4v4c0 3-1.5 5-4 6"/>',
+  nota:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  ia:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15v4M17 17h4"/>',
+  termino:'<path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/>',
+  libro:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M19 19v2H6"/>'
+};
+function accIconFor(){
+  if(currentSection==='s10') return ACC_ICONS.recinto;
+  if(currentSection==='s11') return ACC_ICONS.capas;
+  if(currentSection==='s6') return ACC_ICONS.cita;
+  if(currentSection==='s7') return ACC_ICONS.nota;
+  if(currentSection==='s8') return ACC_ICONS.ia;
+  if(currentSection==='s1' && s1SubTab==='1.4') return ACC_ICONS.termino;
+  return ACC_ICONS.libro;
 }
 let s8Area='all';
 
@@ -1364,6 +1389,7 @@ function renderCards(){
   // Grid class logic
   let gridClass='cards-grid';
   if(currentView==='list') gridClass='cards-list';
+  else if(isAccordionSection()) gridClass='cards-grid accordion-grid';
   else if(currentSection==='s3' && s3SubTab==='3.1') gridClass='cards-grid compact';
   else if(currentSection==='s9') gridClass='cards-grid foto-grid';
   else if(['s4','s5','s6','s7','s8','s10','s11'].includes(currentSection)) gridClass='cards-grid two-col-grid';
@@ -1402,12 +1428,13 @@ function renderCard(d){
 
   function wrapAccordion(headerHtml, bodyHtml, extraCardClass){
     const open = openAccordionIds.has(d.id);
-    return `<div class="card accordion-card ${accentClass}${extraCardClass?' '+extraCardClass:''}">${acts}
-      <div class="accordion-header${open?' open':''}" onclick="toggleAccordion('${d.id}')">
+    return `<div class="card accordion-card ${accentClass}${open?' open':''}${extraCardClass?' '+extraCardClass:''}">${acts}
+      <div class="accordion-header" role="button" tabindex="0" aria-expanded="${open}" onclick="toggleAccordion('${d.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAccordion('${d.id}')}">
+        <span class="acc-icon"><svg viewBox="0 0 24 24">${accIconFor()}</svg></span>
+        <span class="accordion-chevron"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>
         <div class="card-header">${headerHtml}</div>
-        <span class="accordion-chevron">▾</span>
       </div>
-      <div class="accordion-body${open?' open':''}" id="acc-body-${d.id}">${bodyHtml}</div>
+      <div class="accordion-body" id="acc-body-${d.id}">${bodyHtml}</div>
     </div>`;
   }
 
